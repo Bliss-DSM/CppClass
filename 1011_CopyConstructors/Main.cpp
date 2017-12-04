@@ -318,6 +318,97 @@ void Print(Date date)
 	cout << date.GetYear() << "년 " << date.GetMonth() << "월 " << date.GetDay() << "일" << endl;
 }
 
+class Temp
+{
+private:
+	int temp;
+public:
+	Temp(int);
+	Temp(const Temp&);
+	~Temp();
+	int getTemp();
+};
+
+Temp::Temp(int _temp)
+{
+	temp = _temp;
+	cout << "생성자" << endl;
+}
+
+Temp::Temp(const Temp& temp)
+{
+	cout << "복사 생성자" << endl;
+}
+
+Temp::~Temp()
+{
+	cout << "소멸자" << endl;
+}
+
+int Temp::getTemp()
+{
+	return temp;
+}
+
+class SS
+{
+private:
+	int num;
+public:
+	SS(int n) : num(n)
+	{
+		cout << "SS(int n) 호출: 주소: " << this << endl;
+	}
+	SS(const SS& copy) : num(copy.num)
+	{
+		cout << "SS(const SS& copy) 호출: 주소: " << this << endl;
+	}
+	~SS()
+	{
+		cout << "~SS() 호출: 주소: " << this << endl;
+	}
+};
+
+SS SsFunc(SS ob)
+{
+	cout << "return 전" << endl;
+	return ob;
+}
+
+class Parent
+{
+private:
+	int priv = 0;
+protected:
+	int prot = 0;
+public:
+	int pub = 0;
+};
+
+class Child : protected Parent
+{
+public:
+	void AccessParents()
+	{
+		int n;
+		// n = priv;
+		n = prot;
+		n = pub;
+	}
+};
+
+class GrandChild : public Child
+{
+public:
+	void AccessParents()
+	{
+		int n;
+		//n = priv;
+		n = prot;
+		n = pub;
+	}
+};
+
 int PlayerMain()
 {
 	// 스택에 할당
@@ -355,14 +446,208 @@ int PlayerMain()
 
 	cout << endl;
 
-	Player* player4
+	Player* player4;
 
 	delete[] player3;
 
 	return 0;
 }
 
+class _Point
+{
+private:
+	int val_x;
+	int val_y;
+public:
+	_Point(int x, int y)
+	{
+		val_x = x;
+		val_y = y;
+	}
+
+	friend void Reset(_Point &M);
+
+	void Disp()
+	{
+		cout << val_x << "," << val_y << endl;
+	}
+};
+
+//class _Student
+//{
+//	friend void show(_Student s, _Professor p);
+//	int id;
+//
+//public:
+//	_Student(int id)
+//	{
+//		this->id = id;
+//	}
+//};
+//
+//class _Professor
+//{
+//	friend void show(_Student s, _Professor p);
+//	string name;
+//
+//public:
+//	_Professor(string name)
+//	{
+//		this->name = name;
+//	}
+//};
+//
+//void show(_Student s, _Professor p)
+//{
+//	cout << "아이디: " << s.id << "	이름: " << p.name << endl;
+//}
+ 
+void Reset(_Point &M)
+{
+	M.val_x = 0;
+	M.val_y = 0;
+}
+
+class Circle
+{
+private:
+	int radius;
+
+public:
+	Circle(int radius)
+	{
+		cout << "Circle(int radius)" << endl;
+		this->radius = radius;
+	}
+
+	Circle(const Circle& copy) : radius(copy.radius)
+	{
+		cout << "Circle(const Circle& copy) 호출: 주소: " << this << endl;
+	}
+
+	~Circle()
+	{
+		cout << "~Circle()" << endl;
+	}
+
+	void showInfo()
+	{
+		cout << "radius : " << radius << endl;
+	}
+
+	//void operator+(int value)
+	//{
+	//	radius = radius + value;
+	//}
+
+	//Circle operator+ (const Circle& c) const
+	//{
+	//	Circle tempCircle(this->radius + c.radius);
+	//	return tempCircle;
+	//}
+
+	friend Circle operator+ (const Circle& c1, const Circle& c2);
+};
+
+Circle operator+(const Circle& c1, const Circle& c2)
+{
+	Circle tempCircle(c1.radius + c2.radius);
+	return tempCircle;
+}
+
+class __Point
+{
+private:
+	int x, y;
+public:
+	__Point(int x = 0, int y = 0) : x(x), y(y) {}
+	void Showdata();
+	__Point& operator++();
+	__Point operator++(int);
+};
+
+void __Point::Showdata()
+{
+	cout << x << " " << y << endl;
+}
+
+__Point& __Point::operator++()
+{
+	x++;
+	y++;
+	return *this;
+}
+
+__Point __Point::operator++(int)
+{
+	__Point tmp(x, y);
+	x++;
+	y++;
+	return tmp;
+}
+
+//class Shape
+//{
+//public:
+//	void Move(double x, double y);
+//	void Draw() const;
+//
+//	Shape();
+//	Shape(double x, double y);
+//protected:
+//	double _x, _y;
+//};
+//
+//void Shape::Draw() const
+//{
+//	cout << "[Shape] Position = ( " << _x << ", " << _y << ")" << endl;
+//}
+//
+//class Rectangle : public Shape
+//{
+//public:
+//	void Draw() const;
+//	void Resize(double width, double height);
+//
+//	Rectangle();
+//	Rectangle(double x, double y, double width, double height);
+//protected:
+//	double _width;
+//	double _height;
+//};
+//
+//void Rectangle::Draw() const
+//{
+//	cout << "[Rectangle] Position = { " << _x << ", " << _y << ")" << endl;
+//	cout << "Size = ( " << _width << ", " << _height << ")" << endl;
+//}
+//
+//class Circle : public Shape
+//{
+//public:
+//	void Draw() const;
+//	void SetRadius(double radius);
+//
+//	Circle();
+//	Circle(double x, double y, double radius);
+//
+//protected:
+//	double _radius
+//};
+//
+//void Circle::Draw() const
+//{
+//	cout << "[Circle] Position = { " << _x << ", " << _y << ")" << endl;
+//	cout << "Radius = " << _radius << endl;
+//}
+
 int main(void)
 {
-	return PlayerMain();
+	
 }
+
+// 복사 생성자가 언제 호출되는가?
+// 임시 변수가 무엇인가?
+// Call by Value와 Call by Reference
+// 상속의 접근 지정자
+// friend 메서드
