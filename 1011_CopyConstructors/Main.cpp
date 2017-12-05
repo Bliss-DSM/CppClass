@@ -540,11 +540,11 @@ public:
 	//	radius = radius + value;
 	//}
 
-	//Circle operator+ (const Circle& c) const
-	//{
-	//	Circle tempCircle(this->radius + c.radius);
-	//	return tempCircle;
-	//}
+	////Circle operator+ (const Circle& c) const
+	////{
+	////	Circle tempCircle(this->radius + c.radius);
+	////	return tempCircle;
+	////}
 
 	friend Circle operator+ (const Circle& c1, const Circle& c2);
 };
@@ -641,9 +641,29 @@ __Point __Point::operator++(int)
 //	cout << "Radius = " << _radius << endl;
 //}
 
+class Class1
+{
+public:
+	virtual void method() = 0;
+};
+
+class Class2 : public Class2
+{
+public:
+	void Print()
+	{
+		cout << "execute" << endl;
+	}
+};
+
+class Class3 : public Class2
+{
+
+};
+
 int main(void)
 {
-	
+	cout << "execute" << endl;
 }
 
 // 복사 생성자가 언제 호출되는가?
