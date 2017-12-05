@@ -37,7 +37,7 @@ public:
 		cout << "Human Eating" << endl;
 	}
 
-	void Write()
+	virtual void Write()
 	{
 		cout << "Human Writing" << endl;
 	}
@@ -46,7 +46,12 @@ public:
 class Student : public Human
 {
 public:
-	void Study()
+	void Write()
+	{
+		cout << "Student Writing" << endl;
+	}
+
+	virtual void Study()
 	{
 		cout << "Student Studying" << endl;
 	}
@@ -55,6 +60,11 @@ public:
 class BusinessMan : public Human
 {
 public:
+	void Write()
+	{
+		cout << "BusinessMan Writing" << endl;
+	}
+
 	virtual void Work() = 0;
 };
 
@@ -66,6 +76,11 @@ namespace HighSchool
 		int grade = 1;
 
 	public:
+		void Study()
+		{
+			cout << "HighStudent Studying" << endl;
+		}
+
 		int getGrade()
 		{
 			return grade;
@@ -75,12 +90,20 @@ namespace HighSchool
 
 class MiddleStudent : public Student
 {
-
+public:
+	void Study()
+	{
+		cout << "MiddleStudent Studying" << endl;
+	}
 };
 
 class ElementaryStudent : public Student
 {
-
+public:
+	void Study()
+	{
+		cout << "ElementaryStudent Studying" << endl;
+	}
 };
 
 int main(void)
